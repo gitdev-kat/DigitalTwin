@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getIndex } from '@/lib/upstash'
-import { Index } from '@upstash/vector'
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY
 const GROQ_MODEL = process.env.GROQ_MODEL ?? 'llama-3.1-8b-instant'
@@ -59,7 +58,7 @@ export async function POST(req: NextRequest) {
     let answer: string | null = null
     if (GROQ_API_KEY && matches.length > 0) {
       const context = matches
-        .map((m) => `${m.metadata?.title ?? m.id}: ${m.metadata?.content ?? m.payload?.text ?? ''}`)
+        .map((m: MatchResult) => `${m.metadata?.title ?? m.id}: ${m.metadata?.content ?? m.payload?.text ?? ''}`)\n        .join('\n\n')
         .join('\n\n')
 
       const prompt = `Based on the following information about the person, answer the question in first person.\n\nContext:\n${context}\n\nQuestion: ${question}\n\nAnswer:`

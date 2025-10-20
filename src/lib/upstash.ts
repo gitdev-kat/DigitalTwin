@@ -1,6 +1,6 @@
 import { Index } from '@upstash/vector'
 
-export function getIndex(indexName = 'cathetwin-docs') {
+export function getIndex() {
   const url = process.env.UPSTASH_VECTOR_REST_URL
   const token = process.env.UPSTASH_VECTOR_REST_TOKEN
 
