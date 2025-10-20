@@ -3,6 +3,8 @@ import { getIndex } from '@/lib/upstash'
 import fs from 'fs'
 import path from 'path'
 
+export const dynamic = 'force-dynamic'
+
 const ADMIN_KEY = process.env.ADMIN_API_KEY ?? null
 
 export async function POST(req: NextRequest) {

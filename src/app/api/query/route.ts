@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getIndex } from '@/lib/upstash'
 
+export const dynamic = 'force-dynamic'
+
 const GROQ_API_KEY = process.env.GROQ_API_KEY
 const GROQ_MODEL = process.env.GROQ_MODEL ?? 'llama-3.1-8b-instant'
 
