@@ -8,8 +8,15 @@ type MatchResult = {
   id: string;
   score?: number;
   vector?: number[];
-  metadata?: Record<string, any>;
-  payload?: Record<string, any>;
+  metadata?: Record<string, any> | null;
+  payload?: Record<string, any> | null;
+}
+
+type ProcessedMatch = {
+  id: string;
+  score: number | undefined;
+  metadata: Record<string, any> | null;
+  payload: Record<string, any> | null;
 }
 
 async function generateWithGroq(prompt: string) {
@@ -48,7 +55,7 @@ export async function POST(req: NextRequest) {
     const idx = getIndex()
     const results = await idx.query({ data: question, topK, includeMetadata: true }) as unknown as MatchResult[]
     
-    const matches = results.map((m: MatchResult) => ({
+    const matches: ProcessedMatch[] = results.map((m: MatchResult) => ({
       id: m.id,
       score: m.score,
       metadata: m.metadata ?? null,
@@ -58,7 +65,7 @@ export async function POST(req: NextRequest) {
     let answer: string | null = null
     if (GROQ_API_KEY && matches.length > 0) {
       const context = matches
-        .map((m: MatchResult) => `${m.metadata?.title ?? m.id}: ${m.metadata?.content ?? m.payload?.text ?? ''}`)\n        .join('\n\n')
+        .map((m: ProcessedMatch) => `${m.metadata?.title ?? m.id}: ${m.metadata?.content ?? m.payload?.text ?? ''}`)
         .join('\n\n')
 
       const prompt = `Based on the following information about the person, answer the question in first person.\n\nContext:\n${context}\n\nQuestion: ${question}\n\nAnswer:`
