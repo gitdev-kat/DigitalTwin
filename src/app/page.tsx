@@ -15,9 +15,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '32px' }}>
-          <a href="/api/health" style={{ display: 'inline-block', backgroundColor: '#3b82f6', color: 'white', fontWeight: 'bold', padding: '8px 16px', borderRadius: '4px', textDecoration: 'none' }}>
-            Test Health Check
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '32px', flexWrap: 'wrap' }}>
+          <a href="/api/health" style={{ display: 'inline-block', backgroundColor: '#3b82f6', color: 'white', fontWeight: 'bold', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none' }}>
+            🩺 Health Check
+          </a>
+          <a href="/chat" style={{ display: 'inline-block', background: 'linear-gradient(to right, #a855f7, #ec4899)', color: 'white', fontWeight: 'bold', padding: '12px 24px', borderRadius: '8px', textDecoration: 'none' }}>
+            💬 Chat with CatheTwin
           </a>
         </div>
 

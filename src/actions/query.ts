@@ -83,10 +83,10 @@ export async function queryDigitalTwin(
 
     return {
       results: results.map((match) => ({
-        id: match.id,
+        id: String(match.id),
         score: match.score,
-        title: match.metadata?.title,
-        excerpt: match.metadata?.text?.substring(0, 200),
+        title: match.metadata?.title as string | undefined,
+        excerpt: typeof match.metadata?.text === 'string' ? match.metadata.text.substring(0, 200) : undefined,
         metadata: match.metadata,
       })),
       answer,

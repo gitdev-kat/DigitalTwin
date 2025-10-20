@@ -42,9 +42,13 @@ export async function POST(req: NextRequest) {
     const idx = getIndex()
     const items = docs.map((d: any) => ({
       id: d.id ?? `doc-${Math.random().toString(36).slice(2, 9)}`,
-      vector: [0],
-      metadata: { title: d.title ?? '', type: d.type ?? '', tags: d.tags ?? [] },
-      payload: { text: d.content ?? '' },
+      data: d.content ?? d.text ?? '',
+      metadata: { 
+        title: d.title ?? '', 
+        type: d.type ?? '', 
+        tags: d.tags ?? [],
+        text: d.content ?? d.text ?? ''
+      },
     }))
     await idx.upsert(items)
 
